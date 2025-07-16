@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Game {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int size = 10;
+        int size = 4;
         int maxMoves = 20;
         int score = 0;
         int moves = 0;
@@ -36,16 +36,34 @@ public class Game {
             String cell = grid.getGrid()[spaceship.getY()][spaceship.getX()];
             if (cell.equals(" J ")) {
                 score++;
+                grid.getGrid()[spaceship.getY()][spaceship.getX()] = " . ";
+                System.out.println("Collision! Junk ! Score: " + score);
             }
 
-            grid.getGrid()[spaceship.getY()][spaceship.getX()] = " S ";
             grid.drawSpaceship(spaceship);
             grid.showGrid();
 
             moves++;
             System.out.println("Score: " + score + " | Moves left: " + (maxMoves - moves));
+
+            if (!hasJunk(grid)) {
+                System.out.println("Bravo You win !");
+                break;
+            }
         }
 
         System.out.println("Game Over! Final score: " + score);
+    }
+
+    private static boolean hasJunk(Grid grid) {
+        String[][] g = grid.getGrid();
+        for (int i = 0; i < grid.getSize(); i++) {
+            for (int j = 0; j < grid.getSize(); j++) {
+                if (g[i][j].equals(" J ")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

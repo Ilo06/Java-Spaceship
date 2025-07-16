@@ -5,7 +5,7 @@ public class SpaceshipTest {
 
     @Test
     public void testMoveWithinBounds() {
-        Spaceship ship = new Spaceship(); // Starts at (0,0)
+        Spaceship ship = new Spaceship();
         ship.move(2, 2, 10);
         assertEquals(2, ship.getX());
         assertEquals(2, ship.getY());
@@ -13,8 +13,8 @@ public class SpaceshipTest {
 
     @Test
     public void testMoveOutOfBounds() {
-        Spaceship ship = new Spaceship(); // Starts at (0,0)
-        ship.move(-1, 0, 10); // Should not move
+        Spaceship ship = new Spaceship();
+        ship.move(-1, 0, 10);
         assertEquals(0, ship.getX());
         assertEquals(0, ship.getY());
     }
