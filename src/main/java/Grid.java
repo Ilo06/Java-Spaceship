@@ -1,35 +1,57 @@
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @AllArgsConstructor
 public class Grid {
-    private static int size;
+    private int size;
     private String[][] grid;
     private int junkNumbers;
 
-    public void drawGrid(int size) {
+    public void drawGrid() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 grid[i][j] = " . ";
+            }
+        }
+    }
+
+    public void placeJunk() {
+        int placed = 0;
+        while (placed < junkNumbers) {
+            int row = getRandomInt();
+            int col = getRandomInt();
+            if (grid[row][col].equals(" . ")) {
+                grid[row][col] = " J ";
+                placed++;
+            }
+        }
+    }
+
+    public void drawSpaceship(Spaceship spaceship) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (grid[i][j].equals(" S ")) {
+                    grid[i][j] = " . ";
+                }
+            }
+        }
+
+        grid[spaceship.getY()][spaceship.getX()] = " S ";
+    }
+
+    public void showGrid() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 System.out.print(grid[i][j]);
             }
             System.out.println();
         }
     }
 
-    public static int getRandomInt() {
-        return (int) (Math.random() * size + 1);
+    private int getRandomInt() {
+        return (int) (Math.random() * size);
     }
-
-    public void placeJunk() {
-        for (int i = 0; i < junkNumbers; i++) {
-            grid[getRandomInt()][getRandomInt()] = " J ";
-        }
-    }
-
-    public static void main(String[] args) {
-        Grid grid = new Grid( new String[10][10], 10);
-        grid.placeJunk();
-        grid.drawGrid(10);
-    }
-
 }
